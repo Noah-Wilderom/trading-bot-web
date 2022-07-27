@@ -17,7 +17,8 @@ class BotController extends Controller
     public function index($uuid)
     {
         $bot = BotSession::where('uuid', $uuid)->first();
-        return response()->json($bot, 200);
+        $bot->data = json_encode($bot->data);
+        return response()->json($bot->data, 200);
     }
 
     /**
