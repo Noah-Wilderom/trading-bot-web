@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Flasher\Prime\FlasherInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Support\Facades\Storage;
 use DivineOmega\SSHConnection\SSHConnection;
 use Symfony\Component\Process\Exception\ProcessFailedException;
@@ -133,8 +134,10 @@ class BotSessions extends Component
             if (strpos($session->uuid, $tmux) !== false)
             {
                 dd('Bot is alive!', $session, $tmux);
+                Debugbar::info($session, $tmux);
             } else {
-                dd('Bot is dead?', $session, $tmux);
+                // dd('Bot is dead?', $session, $tmux);
+                Debugbar::info($session, $tmux);
             }
         }
 
