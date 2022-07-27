@@ -19,7 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::controller(BotController::class)->prefix('api.bot')->name('bot.')->group(function() {
+Route::controller(BotController::class)->prefix('bot')->name('api.bot.')->group(function() {
     Route::get('/{uuid}', 'index')->name('index');
 
 
