@@ -131,13 +131,17 @@ class BotSessions extends Component
         foreach($this->botSessions as $session)
         {
             $tmux = $this->ssh->run('tmux ls')->getOutput();
-            if (strpos($session->uuid, $tmux) !== false)
+            if (str_contains($tmux, $session->uuid))
             {
                 dd('Bot is alive!', $session, $tmux);
                 Debugbar::info($session, $tmux);
             } else {
                 // dd('Bot is dead?', $session, $tmux);
                 Debugbar::info($session, $tmux);
+                $session->data = json_decode($session->data);
+                $session->data->online = false;
+                $session->data = json_encode($session->data);
+                $session->save();
             }
         }
 
