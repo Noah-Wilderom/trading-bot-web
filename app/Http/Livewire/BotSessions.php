@@ -80,7 +80,7 @@ class BotSessions extends Component
                 toastr()->addSuccess("Bot is initializing and will be ready soon");
             } else {
                 toastr()->adderror("Bot has failed");
-                dd($session);
+                dd($session, "cd /home/noahdev/tradingbot && tmux new-session -d -s " . $bot->uuid . "'python3 main.py --market=" . $bot->coin . " --sell=" . strval($this->newSell) . " --buy=" . strval($this->newBuy) . " --uuid=" . $bot->uuid . "'");
             }
 
         }
