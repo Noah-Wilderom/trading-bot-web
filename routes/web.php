@@ -25,6 +25,6 @@ Route::get('/dashboard', function () {
 
 Route::get('health', HealthCheckResultsController::class);
 
-Route::resource('bot', BotSessionController::class);
+// Route::resource('bot', BotSessionController::class);
 
 require __DIR__.'/auth.php';

@@ -22,10 +22,10 @@ jobs:
           composer install --optimize-autoloader --no-scripts --no-interaction --no-plugins
           npm install
           npm run build
-          php artisan optimize
           php artisan migrate
           php artisan up
           php artisan storage:link
+          php artisan optimize
           systemctl reload nginx
         host: 5.181.134.239
         user: root
