@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Flasher\Prime\FlasherInterface;
 
 class BotSessions extends Component
 {
@@ -52,8 +53,10 @@ class BotSessions extends Component
 
     public function downloadLogs()
     {
+        toastr()->addSuccess("Logs are being downloaded please wait...");
         $ssh = Ssh::create('root', '5.181.134.239', 22)
-            ->usePrivateKey(__DIR__ . '/ssh/id_rsa');
+            ->usePrivateKey(__DIR__ . '/ssh/id_rsa')
+            ->disablePasswordAuthentication();
 
         $dir = Storage::makeDirectory(Auth::user()->email);
 
@@ -85,7 +88,8 @@ class BotSessions extends Component
     {
         $this->botSessions = Auth::user()->botSessions;
         $ssh = Ssh::create('root', '5.181.134.239', 22)
-            ->usePrivateKey(__DIR__ . '/ssh/id_rsa');
+            ->usePrivateKey(__DIR__ . '/ssh/id_rsa')
+            ->disablePasswordAuthentication();
 
         $check = $ssh->execute('whoami')->isSuccessful();
         $coins = $ssh->execute(['cd /home/noahdev/tradingbot', 'python3 main.py --coins'])->getOutput();

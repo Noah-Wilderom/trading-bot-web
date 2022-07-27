@@ -11,6 +11,8 @@
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.10",
+        "php-flasher/flasher-laravel": "^1.7",
+        "php-flasher/flasher-toastr-laravel": "^1.7",
         "spatie/laravel-health": "^1.12",
         "spatie/ssh": "^1.7"
     },
