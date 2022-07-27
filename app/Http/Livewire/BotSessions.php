@@ -127,6 +127,17 @@ class BotSessions extends Component
         $version = $this->ssh->run('cd /home/noahdev/tradingbot && python3 main.py --version');
         $version = $version->getOutput();
 
+        foreach($this->botSessions as $session)
+        {
+            $tmux = $this->ssh->run('tmux ls')->getOutput();
+            if (strpos($session->uuid, $tmux) !== false)
+            {
+                dd('Bot is alive!', $session);
+            } else {
+                dd('Bot is dead?', $session);
+            }
+        }
+
 
         return view('livewire.bot-sessions', compact('check', 'version', 'coins'));
     }
