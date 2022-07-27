@@ -17,6 +17,8 @@ class BotSessions extends Component
 {
     public $botSessions;
 
+    public $createSessionModal = false;
+
     public $newCoin;
     public $newName;
     public $newSell;
@@ -43,6 +45,15 @@ class BotSessions extends Component
             ->connect();
     }
 
+    public function openCreateModal()
+    {
+        $this->createSessionModal = true;
+    }
+
+    public function closeCreateModal()
+    {
+        $this->createSessionModal = false;
+    }
 
     public function createNewBotSession()
     {
@@ -93,17 +104,17 @@ class BotSessions extends Component
 
     }
 
-    // public function updated($name, $value)
-    // {
-    //     if($this->botSessions)
-    //     {
-    //         $user_sessions = Auth::user()->botSessions;
-    //         if($user_sessions->count() > $this->botSessions->count())
-    //         {
-    //             $this->botSessions = $user_sessions;
-    //         }
-    //     }
-    // }
+    public function updated($name, $value)
+    {
+        if($this->botSessions)
+        {
+            $user_sessions = Auth::user()->botSessions;
+            if($user_sessions->count() > $this->botSessions->count())
+            {
+                $this->botSessions = $user_sessions;
+            }
+        }
+    }
 
     public function render()
     {
