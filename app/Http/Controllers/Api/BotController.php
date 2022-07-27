@@ -30,8 +30,8 @@ class BotController extends Controller
     public function update(Request $request, $uuid)
     {
         $bot = BotSession::where('uuid', $uuid)->first();
-        return response()->json(['message' => $request], 200);
         $bot->update(['data' => $request->log]);
+        return response()->json(['message' => $request], 200);
     }
 
     public function log(Request $request, $uuid)
