@@ -132,9 +132,9 @@ class BotSessions extends Component
             $tmux = $this->ssh->run('tmux ls')->getOutput();
             if (strpos($session->uuid, $tmux) !== false)
             {
-                dd('Bot is alive!', $session);
+                dd('Bot is alive!', $session, $tmux);
             } else {
-                dd('Bot is dead?', $session);
+                dd('Bot is dead?', $session, $tmux);
             }
         }
 
