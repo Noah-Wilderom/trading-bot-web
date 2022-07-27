@@ -73,14 +73,14 @@ class BotSessions extends Component
             ]);
             $this->botSessions = Auth::user()->botSessions;
             $session = $this->ssh->run(
-                "cd /home/noahdev/tradingbot && tmux new-session -d -s " . $bot->uuid . "'python3 main.py --market=" . $bot->coin . " --sell=" . strval($this->newSell) . " --buy=" . strval($this->newBuy) . " --uuid=" . $bot->uuid . "'"
+                "cd /home/noahdev/tradingbot && tmux new-session -d -s " . $bot->uuid . " 'python3 main.py --market=" . $bot->coin . " --sell=" . strval($this->newSell) . " --buy=" . strval($this->newBuy) . " --uuid=" . $bot->uuid . "'"
             )->getOutput();
             if(!!$session)
             {
                 toastr()->addSuccess("Bot is initializing and will be ready soon");
             } else {
                 toastr()->adderror("Bot has failed");
-                dd($session, "cd /home/noahdev/tradingbot && tmux new-session -d -s " . $bot->uuid . "'python3 main.py --market=" . $bot->coin . " --sell=" . strval($this->newSell) . " --buy=" . strval($this->newBuy) . " --uuid=" . $bot->uuid . "'");
+                dd($session, "cd /home/noahdev/tradingbot && tmux new-session -d -s " . $bot->uuid . " 'python3 main.py --market=" . $bot->coin . " --sell=" . strval($this->newSell) . " --buy=" . strval($this->newBuy) . " --uuid=" . $bot->uuid . "'");
             }
 
         }
