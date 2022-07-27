@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BotSession extends Model
+class BotLog extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    public function logs()
+    public function session()
     {
-        return $this->hasMany(BotLog::class, 'uuid', 'bot_uuid');
+        return $this->hasOne(BotSession::class, 'uuid', 'bot_uuid');
     }
 }

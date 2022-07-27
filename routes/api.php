@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\BotController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::controller(BotController::class)->prefix('bot')->name('bot.')->group(function() {
+    Route::get('/{uuid}', 'index')->name('index');
+
+
+    Route::post('/update/{uuid}', 'update')->name('update');
+    Route::post('/log/{uuid}', 'log')->name('log');
 });
