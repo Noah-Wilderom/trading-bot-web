@@ -197,6 +197,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Flasher\Laravel\FlasherServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
 
     ],
 
