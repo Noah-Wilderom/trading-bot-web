@@ -1,0 +1,33 @@
+name: Build To Production
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  job_one:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy
+      uses: fifsky/ssh-action@master
+      with:
+        command: |
+          cd /var/www/dev.noahdev.nl/dev
+          git pull origin master
+          rm -rf .env
+          cp .env.production .env
+          php artisan down
+          composer update --no-scripts --no-interaction --no-plugins
+          composer install --optimize-autoloader --no-scripts --no-interaction --no-plugins
+          npm install
+          npm run build
+          php artisan migrate
+          php artisan up
+          php artisan storage:link
+          systemctl reload nginx
+        host: 5.181.134.239
+        user: root
+        key: ${{ secrets.RSA_VPS_GROOT_KEY }}
+        port: 22
+        args: "-tt -vvv"

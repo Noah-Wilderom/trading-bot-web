@@ -19,6 +19,8 @@ class BotSessions extends Component
 
     public $newCoin;
     public $newName;
+    public $newSell;
+    public $newBuy;
 
     private $ssh;
 
@@ -59,7 +61,16 @@ class BotSessions extends Component
                 ])
             ]);
             $this->botSessions = Auth::user()->botSessions;
-            dd($bot);
+            $session = $this->ssh->run(
+                "cd /home/noahdev/tradingbot && tmux new-session -d -s " . $bot->uuid . "'python3 main.py --market=" . $bot->coin . " --sell=" . $this->newSell . " --buy=" . $this->newBuy . " --uuid=" . $bot->uuid . "'"
+            )->getOutput();
+            if(!!$session)
+            {
+                toastr()->addSuccess("Bot is initializing and will be ready soon");
+            } else {
+                toastr()->adderror("Bot has failed");
+            }
+
         }
 
     }
@@ -100,7 +111,7 @@ class BotSessions extends Component
         $this->botSessions = Auth::user()->botSessions;
         $check = !!$this->ssh->run('whoami')->getOutput();
         // dd($check, $this->ssh);
-        $coins = $this->ssh->run('cd /home/noahdev/tradingbot &&python3 main.py --coins')->getOutput();
+        $coins = $this->ssh->run('cd /home/noahdev/tradingbot && python3 main.py --coins')->getOutput();
         $version = $this->ssh->run('cd /home/noahdev/tradingbot && python3 main.py --version');
         $version = $version->getOutput();
 
