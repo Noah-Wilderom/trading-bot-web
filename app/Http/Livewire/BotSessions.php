@@ -73,7 +73,7 @@ class BotSessions extends Component
             ]);
             $this->botSessions = Auth::user()->botSessions;
             $session = $this->ssh->run(
-                "cd /home/noahdev/tradingbot && tmux new-session -d -s " . $bot->uuid . "'python3 main.py --market=" . $bot->coin . " --sell=" . $this->newSell . " --buy=" . $this->newBuy . " --uuid=" . $bot->uuid . "'"
+                "cd /home/noahdev/tradingbot && tmux new-session -d -s " . $bot->uuid . "'python3 main.py --market=" . $bot->coin . " --sell=" . strval($this->newSell) . " --buy=" . strval($this->newBuy) . " --uuid=" . $bot->uuid . "'"
             )->getOutput();
             if(!!$session)
             {
