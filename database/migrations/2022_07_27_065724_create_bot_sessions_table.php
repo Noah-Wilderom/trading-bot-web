@@ -18,7 +18,7 @@ return new class extends Migration
             $table->longText('uuid');
             $table->unsignedBigInteger('user_id');
             $table->string('coin');
-            $table->json('data');
+            $table->longText('data');
             $table->timestamps();
         });
     }
