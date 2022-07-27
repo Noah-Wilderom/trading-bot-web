@@ -80,6 +80,7 @@ class BotSessions extends Component
                 toastr()->addSuccess("Bot is initializing and will be ready soon");
             } else {
                 toastr()->adderror("Bot has failed");
+                dd($session);
             }
 
         }
