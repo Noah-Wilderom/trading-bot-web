@@ -141,6 +141,14 @@
                                     <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Name</label>
                                     <input wire:model="newName" type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Name of process" required>
                                 </div>
+                                <div class="pb-3">
+                                    <label for="buy" class="block mb-2 text-sm font-medium text-gray-900">Buy price</label>
+                                    <input wire:model="newBuy" type="number" step=any name="buy" id="buy" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Buy value" required>
+                                </div>
+                                <div class="pb-3">
+                                    <label for="sell" class="block mb-2 text-sm font-medium text-gray-900">Sell price</label>
+                                    <input wire:model="newSell" type="number" step=any name="sell" id="sell" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Sell value" required>
+                                </div>
                                 <div>
                                     <select class="block mb-2 text-sm font-medium text-gray-900" wire:model="newCoin" required>
                                         <option value="">Select a coin...</option>

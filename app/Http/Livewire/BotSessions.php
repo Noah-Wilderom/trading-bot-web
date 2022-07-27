@@ -93,17 +93,17 @@ class BotSessions extends Component
 
     }
 
-    public function updated($name, $value)
-    {
-        if($this->botSessions)
-        {
-            $user_sessions = Auth::user()->botSessions;
-            if($user_sessions->count() > $this->botSessions->count())
-            {
-                $this->botSessions = $user_sessions;
-            }
-        }
-    }
+    // public function updated($name, $value)
+    // {
+    //     if($this->botSessions)
+    //     {
+    //         $user_sessions = Auth::user()->botSessions;
+    //         if($user_sessions->count() > $this->botSessions->count())
+    //         {
+    //             $this->botSessions = $user_sessions;
+    //         }
+    //     }
+    // }
 
     public function render()
     {
