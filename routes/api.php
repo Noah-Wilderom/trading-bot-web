@@ -23,6 +23,6 @@ Route::controller(BotController::class)->prefix('bot')->group(function() {
     Route::get('/{uuid}', 'index');
 
 
-    Route::post('/update/{uuid}', 'update');
-    Route::post('/log/{uuid}', 'log');
+    Route::get('/update/{uuid}', 'update');
+    Route::get('/log/{uuid}', 'log');
 });
