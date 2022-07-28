@@ -101,9 +101,11 @@
                             <div class="w-2 h-2 rounded-full {{ json_decode($botSession->data)->online ?: 'bg-red-400' }}" style="{{ json_decode($botSession->data)->online ? 'background-color: #00bf30' : ''  }}"></div>
                         </td>
                         <td class="pr-8 relative">
-                            <button class="text-red-500 p-2 border-transparent border bg-gray-100 hover:bg-gray-200 cursor-pointer rounded focus:outline-none focus:border-gray-800 focus:shadow-outline-gray" aria-label="delete table" data-modal-toggle="modal-delete-{{ $botSession->uuid }}">
-                                <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/compact_table_with_actions_and_select-svg5.svg" alt="delete">
-                            </button>
+                            <a href="{{ route('bot.logs', $botSession->uuid) }}" style="all: unset;">
+                                <button class="text-red-500 p-2 border-transparent border bg-gray-100 hover:bg-gray-200 cursor-pointer rounded focus:outline-none focus:border-gray-800 focus:shadow-outline-gray">
+                                    <i class="fa-solid fa-robot"></i>
+                                </button>
+                            </a>
                         </td>
                     </tr>
 
