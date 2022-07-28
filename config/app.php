@@ -198,6 +198,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Flasher\Laravel\FlasherServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        App\Providers\HealthProvider::class,
 
     ],
 
