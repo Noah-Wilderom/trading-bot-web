@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\BotSessionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\BotSessionController;
 use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 
 /*
@@ -22,6 +23,8 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('/settings', [SettingsController::class, 'index'])->name('user.settings');
 
 Route::get('health', HealthCheckResultsController::class);
 

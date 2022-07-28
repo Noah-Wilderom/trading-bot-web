@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(BotSession::class);
     }
+
+    public function settings()
+    {
+        return $this->hasMany(UserSettings::class);
+    }
 }

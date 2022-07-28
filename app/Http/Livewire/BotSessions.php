@@ -6,6 +6,7 @@ use Spatie\Ssh\Ssh;
 use Livewire\Component;
 use App\Models\BotSession;
 use Illuminate\Support\Str;
+use App\Models\UserSettings;
 use Flasher\Prime\FlasherInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -26,6 +27,8 @@ class BotSessions extends Component
     public $newBuy;
 
     private $ssh;
+    private $public_key;
+    private $secret_key;
 
     public $isLoading = false;
 
@@ -73,15 +76,19 @@ class BotSessions extends Component
                 ])
             ]);
             $this->botSessions = Auth::user()->botSessions;
+
+            $api_key = UserSettings::where('user_id', Auth::user()->id)->where('key', 'bitvavo_api_public_key')->first();
+            $api_secret_key = UserSettings::where('user_id', Auth::user()->id)->where('key', 'bitvavo_api_secret_key')->first();
+
             $session = $this->ssh->run(
-                "cd /home/noahdev/tradingbot && tmux new-session -d -s " . $bot->uuid . " 'python3 main.py --web --market=" . $bot->coin . " --sell=" . strval($this->newSell) . " --buy=" . strval($this->newBuy) . " --uuid=" . $bot->uuid . "'"
+                "cd /home/noahdev/tradingbot && tmux new-session -d -s " . $bot->uuid . " 'python3 main.py --web --market=" . $bot->coin . " --sell=" . strval($this->newSell) . " --buy=" . strval($this->newBuy) . " --uuid=" . $bot->uuid . " --api_key=" . $api_key->value . " --api_secret_key=" . $api_secret_key->value . "'"
             )->getOutput();
             if(!!$session)
             {
                 toastr()->addSuccess("Bot is initializing and will be ready soon");
             } else {
                 toastr()->adderror("Bot has failed");
-                dd($session, "cd /home/noahdev/tradingbot && tmux new-session -d -s " . $bot->uuid . " 'python3 main.py --web --market=" . $bot->coin . " --sell=" . strval($this->newSell) . " --buy=" . strval($this->newBuy) . " --uuid=" . $bot->uuid . "'");
+                dd($session, "cd /home/noahdev/tradingbot && tmux new-session -d -s " . $bot->uuid . " 'python3 main.py --web --market=" . $bot->coin . " --sell=" . strval($this->newSell) . " --buy=" . strval($this->newBuy) . " --uuid=" . $bot->uuid . " --api_key=" . $api_key->value . " --api_secret_key=" . $api_secret_key->value . "'");
             }
 
         }
@@ -124,7 +131,20 @@ class BotSessions extends Component
         $this->botSessions = Auth::user()->botSessions;
         $check = !!$this->ssh->run('whoami')->getOutput();
         // dd($check, $this->ssh);
-        $coins = $this->ssh->run('cd /home/noahdev/tradingbot && python3 main.py --coins')->getOutput();
+        foreach(Auth::user()->settings as $setting)
+        {
+            if($setting->key == 'bitvavo_api_public_key')
+            {
+
+                $this->public_key = $setting->key;
+            }
+            if($setting->key == 'bitvavo_api_secret_key')
+            {
+                $this->secret_key = $setting->key;
+            }
+        }
+        $check_bitvavo = ($this->public_key && $this->secret_key);
+        $coins = $this->public_key && $this->secret_key ? $this->ssh->run('cd /home/noahdev/tradingbot && python3 main.py --coins')->getOutput() : [];
         $version = $this->ssh->run('cd /home/noahdev/tradingbot && python3 main.py --version');
         $version = $version->getOutput();
 
@@ -145,6 +165,6 @@ class BotSessions extends Component
         }
 
 
-        return view('livewire.bot-sessions', compact('check', 'version', 'coins'));
+        return view('livewire.bot-sessions', compact('check', 'version', 'coins', 'check_bitvavo'));
     }
 }

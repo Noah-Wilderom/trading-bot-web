@@ -8,8 +8,14 @@
         </div>
 
         <div class="pb-3">
-            Version <span class="text-white" style="padding: 5px; font-weight: 700; {{ $version ? 'background-color: #003596' : 'background-color: #bf1900' }}">
+            Bot Version <span class="text-white" style="padding: 5px; font-weight: 700; {{ $version ? 'background-color: #003596' : 'background-color: #bf1900' }}">
                 {{ $version ? $version : 'No SSH Connection' }}
+            </span>
+        </div>
+
+        <div class="pb-3">
+            Bitvavo <span class="text-white" style="padding: 5px; font-weight: 700; {{ $check_bitvavo ? 'background-color: #00bf30' : 'background-color: #bf1900' }}">
+                {{ $check_bitvavo ? 'Connected' : 'No API Key Set' }}
             </span>
         </div>
     </div>
