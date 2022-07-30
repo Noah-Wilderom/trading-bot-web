@@ -92,7 +92,7 @@
                         <td class="text-sm pr-6 whitespace-no-wrap text-gray-800 tracking-normal leading-4">{{ json_decode($botSession->data)->name }}</td>
                         <td class="pr-6 whitespace-no-wrap">
                             <div class="flex items-center">
-                                <p class="ml-2 text-gray-800 tracking-normal leading-4 text-sm">{{ json_decode($botSession->data)->total_profit ?? 'Fail' }} ({{ botSession->coin }})</p>
+                                <p class="ml-2 text-gray-800 tracking-normal leading-4 text-sm">{{ json_decode($botSession->data)->total_profit ?? 'Fail' }} ({{ $botSession->coin }})</p>
                             </div>
                         </td>
                         <td class="text-sm pr-6 whitespace-no-wrap text-gray-800 tracking-normal leading-4">{{ $botSession->coin }}</td>
