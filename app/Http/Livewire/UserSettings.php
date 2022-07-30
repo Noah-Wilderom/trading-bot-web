@@ -21,6 +21,8 @@ class UserSettings extends Component
             if($setting)
             {
                 $this->demo_account = $setting->value;
+            } else {
+                $this->demo_account = false;
             }
             $this->first_load = false;
         }
