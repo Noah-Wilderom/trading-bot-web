@@ -159,7 +159,7 @@
                                 </div>
                                 <div class="pb-3">
                                     <label for="max" class="block mb-2 text-sm font-medium text-gray-900">Max Money (In Euro)</label>
-                                    <input wire:model="newMax" type="number" min=5 max=50 step=1 name="max" id="max" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Sell value" required>
+                                    <input wire:model="newMax" type="number" min=5 max=50 step=1 name="max" id="max" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Max money" required>
                                 </div>
                                 <div>
                                     <select class="block mb-2 text-sm font-medium text-gray-900" wire:model="newCoin" required>

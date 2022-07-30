@@ -95,8 +95,8 @@ class BotSessions extends Component
             $session = $this->ssh->run(
                 $cmd
             )->getOutput();
-            toastr()->adderror("Bot has failed");
-            // dd($session, "cd /home/noahdev/tradingbot && tmux new-session -d -s " . $bot->uuid . " 'python3 main.py --web --market=" . $bot->coin . " --sell=" . strval($this->newSell) . " --buy=" . strval($this->newBuy) . " --uuid=" . $bot->uuid . " --api_key=" . $api_key->value . " --api_secret_key=" . $api_secret_key->value . "'");
+            toastr()->addSuccess("Bot is intializing, bot will start soon.");
+            dd($session, $cmd);
             $this->closeCreateModal();
 
         }
