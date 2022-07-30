@@ -92,7 +92,7 @@
                         <td class="text-sm pr-6 whitespace-no-wrap text-gray-800 tracking-normal leading-4">{{ json_decode($botSession->data)->name }}</td>
                         <td class="pr-6 whitespace-no-wrap">
                             <div class="flex items-center">
-                                <p class="ml-2 text-gray-800 tracking-normal leading-4 text-sm">{{ json_decode($botSession->data)->total_profit ?? 'Fail' }}</p>
+                                <p class="ml-2 text-gray-800 tracking-normal leading-4 text-sm">{{ json_decode($botSession->data)->total_profit ?? 'Fail' }} ({{ botSession->coin }})</p>
                             </div>
                         </td>
                         <td class="text-sm pr-6 whitespace-no-wrap text-gray-800 tracking-normal leading-4">{{ $botSession->coin }}</td>
@@ -156,6 +156,10 @@
                                 <div class="pb-3">
                                     <label for="sell" class="block mb-2 text-sm font-medium text-gray-900">Sell price</label>
                                     <input wire:model="newSell" type="number" step=any name="sell" id="sell" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Sell value" required>
+                                </div>
+                                <div class="pb-3">
+                                    <label for="max" class="block mb-2 text-sm font-medium text-gray-900">Max Money (In Euro)</label>
+                                    <input wire:model="newMax" type="number" min=5 max=50 step=1 name="max" id="max" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Sell value" required>
                                 </div>
                                 <div>
                                     <select class="block mb-2 text-sm font-medium text-gray-900" wire:model="newCoin" required>
