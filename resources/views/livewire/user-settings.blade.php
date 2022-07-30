@@ -21,6 +21,15 @@
                     </button>
                 </label>
             </div>
+            <div class="pb-6">
+                <label for="demo_account" class="block">
+                    <span class="block text-sm font-medium text-slate-700">Demo Account</span>
+                    <input wire:model="demo_account" type="checkbox" id="demo_account" @if($demo_acount) checked @endif />
+                    <button wire:click="saveSetting('demo_account')" class="">
+                        Save
+                    </button>
+                </label>
+            </div>
         </div>
     </div>
 </div>

@@ -25,6 +25,7 @@ class BotSessions extends Component
     public $newName;
     public $newSell;
     public $newBuy;
+    public $newMax;
 
     private $ssh;
     private $public_key;
@@ -61,7 +62,7 @@ class BotSessions extends Component
 
     public function createNewBotSession()
     {
-        if($this->newCoin && $this->newName)
+        if($this->newCoin && $this->newName && $this->newSell && $this->newBuy && $this->newMax)
         {
             $bot = BotSession::create([
                 'uuid' => Str::uuid(),
@@ -80,16 +81,23 @@ class BotSessions extends Component
             $api_key = UserSettings::where('user_id', Auth::user()->id)->where('key', 'bitvavo_api_public_key')->first();
             $api_secret_key = UserSettings::where('user_id', Auth::user()->id)->where('key', 'bitvavo_api_secret_key')->first();
 
-            $session = $this->ssh->run(
-                "cd /home/noahdev/tradingbot && tmux new-session -d -s " . $bot->uuid . " 'python3 main.py --web --market=" . $bot->coin . " --sell=" . strval($this->newSell) . " --buy=" . strval($this->newBuy) . " --uuid=" . $bot->uuid . " --api_key=" . $api_key->value . " --api_secret_key=" . $api_secret_key->value . "'"
-            )->getOutput();
-            if(!!$session)
+            $setting = UserSettings::where('user_id', Auth::user()->id)->where('key', 'demo_account')->first();
+            if($setting)
             {
-                toastr()->addSuccess("Bot is initializing and will be ready soon");
-            } else {
-                toastr()->adderror("Bot has failed");
-                dd($session, "cd /home/noahdev/tradingbot && tmux new-session -d -s " . $bot->uuid . " 'python3 main.py --web --market=" . $bot->coin . " --sell=" . strval($this->newSell) . " --buy=" . strval($this->newBuy) . " --uuid=" . $bot->uuid . " --api_key=" . $api_key->value . " --api_secret_key=" . $api_secret_key->value . "'");
+                if($setting->value == 'on')
+                {
+                    $cmd = "cd /home/noahdev/tradingbot && tmux new-session -d -s " . $bot->uuid . " 'python3 main.py --web --market=" . $bot->coin . " --sell=" . strval($this->newSell) . " --buy=" . strval($this->newBuy) . " --uuid=" . $bot->uuid . " --api_key=" . $api_key->value . " --api_secret_key=" . $api_secret_key->value . " --max_money=" . $this->newMax . " --demo_mode" . "'";
+                } else {
+                    $cmd = "cd /home/noahdev/tradingbot && tmux new-session -d -s " . $bot->uuid . " 'python3 main.py --web --market=" . $bot->coin . " --sell=" . strval($this->newSell) . " --buy=" . strval($this->newBuy) . " --uuid=" . $bot->uuid . " --api_key=" . $api_key->value . " --api_secret_key=" . $api_secret_key->value . " --max_money=" . $this->newMax . "'";
+                }
             }
+
+            $session = $this->ssh->run(
+                $cmd
+            )->getOutput();
+            toastr()->adderror("Bot has failed");
+            // dd($session, "cd /home/noahdev/tradingbot && tmux new-session -d -s " . $bot->uuid . " 'python3 main.py --web --market=" . $bot->coin . " --sell=" . strval($this->newSell) . " --buy=" . strval($this->newBuy) . " --uuid=" . $bot->uuid . " --api_key=" . $api_key->value . " --api_secret_key=" . $api_secret_key->value . "'");
+            $this->closeCreateModal();
 
         }
 
