@@ -84,7 +84,7 @@ class BotSessions extends Component
             $setting = UserSettings::where('user_id', Auth::user()->id)->where('key', 'demo_account')->first();
             if($setting)
             {
-                if($setting->value == 'on')
+                if($setting->value)
                 {
                     $cmd = "cd /home/noahdev/tradingbot && tmux new-session -d -s " . $bot->uuid . " 'python3 main.py --web --market=" . $bot->coin . " --sell=" . strval($this->newSell) . " --buy=" . strval($this->newBuy) . " --uuid=" . $bot->uuid . " --api_key=" . $api_key->value . " --api_secret_key=" . $api_secret_key->value . " --max_money=" . $this->newMax . " --demo_mode" . "'";
                 } else {

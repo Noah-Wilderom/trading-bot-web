@@ -23,8 +23,8 @@
             </div>
             <div class="pb-6">
                 <label for="demo_account" class="block">
-                    <span class="block text-sm font-medium text-slate-700">Demo Account</span>
-                    <input wire:model="demo_account" type="checkbox" id="demo_account" @if(isset($demo_acount)) checked @endif />
+                    <span class="block text-sm font-medium text-slate-700">Demo Account @if($demo_account)<span class="text-sm font-medium text-green-500">On</span>@endif</span>
+                    <input wire:model="demo_account_input" type="checkbox" id="demo_account" />
                     <button wire:click="saveSetting('demo_account')" class="">
                         Save
                     </button>

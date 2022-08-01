@@ -10,6 +10,7 @@ class UserSettings extends Component
 {
     public $bitvavo_api_secret_key;
     public $bitvavo_api_public_key;
+    public $demo_account_input;
     public $demo_account;
     private $first_load = true;
 
@@ -20,7 +21,7 @@ class UserSettings extends Component
             $setting = SettingsModel::where('user_id', Auth::user()->id)->where('key', 'demo_account')->first();
             if($setting)
             {
-                $this->demo_account = $setting->value;
+                $this->demo_account = intval($setting->value) ? true : false;
             } else {
                 $this->demo_account = false;
             }
@@ -72,14 +73,14 @@ class UserSettings extends Component
             $setting = SettingsModel::where('user_id', Auth::user()->id)->where('key', 'demo_account')->first();
             if($setting)
             {
-                $setting->value = $this->demo_account;
+                $setting->value = $this->demo_account_input ? 1 : 0;
                 $setting->save();
                 toastr()->addSuccess('Setting saved successfully');
             } else {
                 $setting = SettingsModel::create([
                     'user_id' => Auth::user()->id,
                     'key' => 'demo_account',
-                    'value' => $this->demo_account ?: 0
+                    'value' => $this->demo_account_input ? 1 : 0
                 ]);
                 toastr()->addSuccess('Setting saved successfully');
             }
