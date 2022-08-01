@@ -94,8 +94,7 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('user.settings')"
-                        onclick="event.preventDefault();">
+                <x-responsive-nav-link :href="route('user.settings')">
                     {{ __('Settings') }}
                 </x-responsive-nav-link>
 
