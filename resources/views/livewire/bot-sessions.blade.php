@@ -108,7 +108,7 @@
                             </a>
                         </td>
                         <td class="pr-4 relative">
-                                <button wire:click="queueLogExport('{{ $botSession->uuid }}')" class="text-red-500 p-2 border-transparent border bg-gray-100 hover:bg-gray-200 cursor-pointer rounded focus:outline-none focus:border-gray-800 focus:shadow-outline-gray">
+                                <button wire:click="queueLogExport('{{ $botSession->uuid }}')" class="text-blue-500 p-2 border-transparent border bg-gray-100 hover:bg-gray-200 cursor-pointer rounded focus:outline-none focus:border-gray-800 focus:shadow-outline-gray">
                                     <i class="fa-solid fa-file-export"></i>
                                 </button>
                         </td>

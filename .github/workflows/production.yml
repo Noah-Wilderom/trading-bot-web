@@ -26,6 +26,10 @@ jobs:
           php artisan up
           php artisan storage:link
           php artisan optimize
+          sudo supervisorctl stop all
+          sudo supervisorctl reread
+          sudo supervisorctl update
+          sudo supervisorctl start all
           systemctl reload nginx
         host: 5.181.134.239
         user: root
