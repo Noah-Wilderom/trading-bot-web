@@ -97,7 +97,7 @@ class BotSessions extends Component
                 $cmd
             )->getOutput();
             toastr()->addSuccess("Bot is intializing, bot will start soon.");
-            dd($session, $cmd);
+            // dd($session, $cmd);
             $this->closeCreateModal();
 
         }
