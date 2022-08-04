@@ -4,13 +4,15 @@ namespace App\Exports;
 
 use App\Models\BotLog;
 use App\Models\BotSession;
-use Maatwebsite\Excel\Concerns\FromQuery;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\WithStyles;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-
-
-class BotLogsExport implements FromQuery, ShouldQueue
+class BotLogsExport implements WithStyles, ShouldAutoSize, FromCollection, ShouldQueue
 {
     use Exportable;
 
@@ -23,11 +25,19 @@ class BotLogsExport implements FromQuery, ShouldQueue
         $this->bot = $bot;
     }
 
-    /**
-    * @return \Illuminate\Support\FromQuery
-    */
-    public function query()
+    public function styles(Worksheet $sheet)
     {
-        return BotLog::query()->where('bot_uuid', $this->bot->uuidd);
+        return [
+            1 => ['font' => ['bold' => true]]
+        ];
+    }
+
+
+    public function collection()
+    {
+        $collection = new Collection();
+        $collection->add(['ID', 'Bot UUID', 'Log', 'Created At', 'Updated At']);
+        $collection->add(BotLog::where('bot_uuid', $this->bot->uuid)->get());
+        return $collection;
     }
 }

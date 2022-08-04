@@ -11,6 +11,16 @@ class BotLog extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'created_at' => 'datetime:H:i:s d-m-Y',
+        'updated_at' => 'datetime:H:i:s d-m-Y',
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at'
+    ];
+
     public function session()
     {
         return $this->hasOne(BotSession::class, 'uuid', 'bot_uuid');

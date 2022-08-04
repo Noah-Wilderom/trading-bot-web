@@ -106,16 +106,13 @@ class BotSessions extends Component
 
     public function queueLogExport($bot_id)
     {
+        toastr()->addSuccess('Export has been started, download will be ready soon.');
         $bot = BotSession::where('uuid', $bot_id)->first();
         // return $bot ?: toastr()->addError('Export has failed, please reload the page and try again.');
 
         (new BotLogsExport($bot))->store(Auth::user()->email . '/' . $bot->uuid . '.xlsx');
-        // ->chain([
-        //     Storage::download(Auth::user()->email . '/' . $bot->uuid . '.xlsx'),
-        //     toastr()->addSuccess('Export has been started, download will be ready soon.')
-        // ]);
 
-        toastr()->addSuccess('Export has been started, download will be ready soon.');
+
         while(!Storage::disk('local')->exists(Auth::user()->email . '/' . $bot->uuid . '.xlsx')) {
             sleep(1);
         }
