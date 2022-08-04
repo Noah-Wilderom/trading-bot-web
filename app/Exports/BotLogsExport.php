@@ -9,10 +9,10 @@ use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class BotLogsExport implements WithStyles, ShouldAutoSize, FromCollection, ShouldQueue
+class BotLogsExport implements WithStyles, WithColumnWidths, FromCollection, ShouldQueue
 {
     use Exportable;
 
@@ -32,6 +32,15 @@ class BotLogsExport implements WithStyles, ShouldAutoSize, FromCollection, Shoul
         ];
     }
 
+    public function columnWidths(): array
+    {
+        return [
+            'B' => 35,
+            'C' => 75,
+            'D' => 18,
+            'E' => 18
+        ];
+    }
 
     public function collection()
     {
