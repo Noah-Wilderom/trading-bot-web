@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\BotSession;
 use Illuminate\Support\Str;
 use App\Models\UserSettings;
+use App\Exports\BotLogsExport;
 use Flasher\Prime\FlasherInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -101,6 +102,25 @@ class BotSessions extends Component
 
         }
 
+    }
+
+    public function queueLogExport($bot_id)
+    {
+        $bot = BotSession::where('uuid', $bot_id)->first();
+        // return $bot ?: toastr()->addError('Export has failed, please reload the page and try again.');
+
+        (new BotLogsExport($bot))->store(Auth::user()->email . '/' . $bot->uuid . '.xlsx');
+        // ->chain([
+        //     Storage::download(Auth::user()->email . '/' . $bot->uuid . '.xlsx'),
+        //     toastr()->addSuccess('Export has been started, download will be ready soon.')
+        // ]);
+
+        toastr()->addSuccess('Export has been started, download will be ready soon.');
+        while(!Storage::disk('local')->exists(Auth::user()->email . '/' . $bot->uuid . '.xlsx')) {
+            sleep(1);
+        }
+
+        return Storage::download(Auth::user()->email . '/' . $bot->uuid . '.xlsx');
     }
 
     public function downloadLogs()

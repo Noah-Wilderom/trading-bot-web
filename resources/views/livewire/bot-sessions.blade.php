@@ -100,15 +100,19 @@
                         <td class="pr-6">
                             <div class="w-2 h-2 rounded-full {{ json_decode($botSession->data)->online ?: 'bg-red-400' }}" style="{{ json_decode($botSession->data)->online ? 'background-color: #00bf30' : ''  }}"></div>
                         </td>
-                        <td class="pr-8 relative">
+                        <td class="pr-4 relative">
                             <a href="{{ route('bot.logs', $botSession->uuid) }}" style="all: unset;">
                                 <button class="text-red-500 p-2 border-transparent border bg-gray-100 hover:bg-gray-200 cursor-pointer rounded focus:outline-none focus:border-gray-800 focus:shadow-outline-gray">
                                     <i class="fa-solid fa-robot"></i>
                                 </button>
                             </a>
                         </td>
+                        <td class="pr-4 relative">
+                                <button wire:click="queueLogExport('{{ $botSession->uuid }}')" class="text-red-500 p-2 border-transparent border bg-gray-100 hover:bg-gray-200 cursor-pointer rounded focus:outline-none focus:border-gray-800 focus:shadow-outline-gray">
+                                    <i class="fa-solid fa-file-export"></i>
+                                </button>
+                        </td>
                     </tr>
-
                     <div id="modal-delete-{{ $botSession->uuid }}" aria-hidden="true" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full">
                         <div class="relative p-4 w-full max-w-md h-full md:h-auto">
                             <div class="relative bg-white rounded-lg shadow ">
