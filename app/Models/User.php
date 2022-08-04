@@ -44,7 +44,7 @@ class User extends Authenticatable
 
     public function botSessions()
     {
-        return $this->hasMany(BotSession::class);
+        return $this->hasMany(BotSession::class)->orderByDesc('created_at');
     }
 
     public function settings()
