@@ -110,6 +110,11 @@ class BotSessions extends Component
         $bot = BotSession::where('uuid', $bot_id)->first();
         // return $bot ?: toastr()->addError('Export has failed, please reload the page and try again.');
 
+        if(Storage::disk('local')->exists(Auth::user()->email . '/' . $bot->uuid . '.xlsx'))
+        {
+            Storage::disk('local')->delete(Auth::user()->email . '/' . $bot->uuid . '.xlsx');
+        }
+
         (new BotLogsExport($bot))->store(Auth::user()->email . '/' . $bot->uuid . '.xlsx');
 
 
